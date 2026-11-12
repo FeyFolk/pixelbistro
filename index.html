@@ -46,7 +46,7 @@
       font-family: 'Plus Jakarta Sans', sans-serif;
     }
 
-    /* Subtle Diagonal Picnic Tablecloth Plaid Overlay (Matching Reference Slide) */
+    /* Subtle Diagonal Picnic Tablecloth Plaid Overlay */
     .bg-gingham {
       background-color: #F7F6F2;
       background-image:
@@ -134,6 +134,38 @@
       animation: ticketPop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
     }
 
+    /* Logo Glitch Effect (0.55s One-Shot on Hover) */
+    .glitch-target.is-glitching {
+      animation: glitch-burst 0.55s cubic-bezier(.25, .46, .45, .94) 1 forwards;
+    }
+
+    @keyframes glitch-burst {
+      0% {
+        transform: translate(0, 0) rotate(-3deg);
+        text-shadow: none;
+      }
+      15% {
+        transform: translate(-3px, 2px) rotate(-2deg);
+        text-shadow: 4px -2px 0px #645CE8, -4px 2px 0px #169C4B;
+      }
+      35% {
+        transform: translate(3px, -2px) rotate(-4deg);
+        text-shadow: -4px -2px 0px #F6C945, 3px 2px 0px #645CE8;
+      }
+      55% {
+        transform: translate(-2px, 1px) rotate(-2.5deg);
+        text-shadow: 2px 3px 0px #169C4B, -2px -3px 0px #F6C945;
+      }
+      75% {
+        transform: translate(2px, -1px) rotate(-3.5deg);
+        text-shadow: -3px 1px 0px #645CE8, 3px -1px 0px #169C4B;
+      }
+      100% {
+        transform: translate(0, 0) rotate(-3deg);
+        text-shadow: none;
+      }
+    }
+
     .pixel-art {
       image-rendering: pixelated;
       shape-rendering: crispEdges;
@@ -173,15 +205,17 @@
       <!-- Logo + Floating Olive Note Card Wrapper -->
       <div class="relative w-full flex flex-col lg:flex-row items-center justify-center mb-5 sm:mb-7">
         
-        <!-- Tilted "Pixel Bistro" Wordmark (-4deg matching slide) -->
-        <div class="transform -rotate-3 hover:rotate-0 transition-transform duration-300 text-center select-none">
-          <h1 class="leading-[0.84] text-espresso">
-            <span class="block font-pixel text-6xl sm:text-8xl md:text-[7.2rem] tracking-tight">Pixel</span>
-            <span class="block font-sans font-extrabold text-6xl sm:text-8xl md:text-[7rem] tracking-tight -mt-1 sm:-mt-2">Bistro</span>
-          </h1>
+        <!-- Tilted "Pixel Bistro" Wordmark with Hover Glitch Trigger -->
+        <div id="logoGlitchTrigger" class="transform -rotate-3 cursor-pointer select-none">
+          <div id="logoGlitchTarget" class="glitch-target text-center">
+            <h1 class="leading-[0.84] text-espresso">
+              <span class="block font-pixel text-6xl sm:text-8xl md:text-[7.2rem] tracking-tight">Pixel</span>
+              <span class="block font-sans font-extrabold text-6xl sm:text-8xl md:text-[7rem] tracking-tight -mt-1 sm:-mt-2">Bistro</span>
+            </h1>
+          </div>
         </div>
 
-        <!-- Olive Note Card + Diagonal Pixel Pencil (Positioned to the right on desktop, centered below on mobile) -->
+        <!-- Olive Note Card + Diagonal Pixel Pencil -->
         <div class="mt-7 lg:mt-0 lg:absolute lg:right-0 xl:right-4 lg:top-1/2 lg:-translate-y-1/2 max-w-[285px] sm:max-w-[300px] z-10">
           <div class="relative bg-olive text-paper rounded-xl border-2 border-espresso px-4 py-3.5 shadow-retro">
             
@@ -266,10 +300,9 @@
             </div>
           </form>
 
-          <!-- Confirmation Stamp State (Hidden until submit) -->
+          <!-- Confirmation Stamp State -->
           <div id="confirmationStamp" class="hidden animate-ticket text-center py-2 space-y-2">
             <div class="inline-flex items-center gap-2 bg-kelly text-white font-pixel text-xs px-3.5 py-1.5 rounded-lg border-2 border-espresso shadow-retro-sm">
-              <!-- Tiny Pixel Ticket Icon -->
               <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="pixel-art" aria-hidden="true">
                 <rect x="2" y="4" width="12" height="8" fill="#F6C945" stroke="#383028" stroke-width="1.5"/>
                 <rect x="6" y="7" width="4" height="2" fill="#383028"/>
@@ -297,7 +330,7 @@
   <footer class="w-full">
     <div class="max-w-6xl mx-auto px-4 sm:px-8 pb-3.5 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-espresso/85">
       
-      <!-- Prominent Contact Email Badge (Click-to-Copy + Mailto) -->
+      <!-- Prominent Contact Email Badge -->
       <div class="inline-flex items-center bg-white/95 border-2 border-espresso rounded-xl shadow-retro-sm overflow-hidden">
         <a 
           href="mailto:partner@pixelbistro.com.br" 
@@ -328,7 +361,7 @@
     <div class="checker-green" aria-hidden="true"></div>
   </footer>
 
-  <!-- INTERACTIVE SCRIPT (Language Toggle, Copy Email & Waitlist Confirmation) -->
+  <!-- INTERACTIVE SCRIPT -->
   <script>
     let currentLang = 'pt';
     let selectedRole = 'player';
@@ -374,6 +407,20 @@
         bottom_right: 'Fresh out the oven'
       }
     };
+
+    // Logo Glitch Trigger (0.55s One-Shot)
+    const logoTrigger = document.getElementById('logoGlitchTrigger');
+    const logoTarget = document.getElementById('logoGlitchTarget');
+
+    logoTrigger.addEventListener('mouseenter', () => {
+      logoTarget.classList.remove('is-glitching');
+      void logoTarget.offsetWidth;
+      logoTarget.classList.add('is-glitching');
+    });
+
+    logoTarget.addEventListener('animationend', () => {
+      logoTarget.classList.remove('is-glitching');
+    });
 
     function copyContactEmail() {
       const email = 'partner@pixelbistro.com.br';
@@ -446,7 +493,6 @@
         }
       });
 
-      // Update confirmation text if currently visible
       const confirmMsg = document.getElementById('confirmationMsg');
       if (!document.getElementById('confirmationStamp').classList.contains('hidden')) {
         confirmMsg.textContent = selectedRole === 'player'
@@ -454,7 +500,6 @@
           : translations[lang].confirm_creator;
       }
 
-      // Preserve copied label state if active
       if (isEmailCopied) {
         document.getElementById('copyEmailLabel').textContent = translations[lang].btn_copied;
       }
