@@ -203,7 +203,7 @@
     <div class="w-full max-w-5xl mx-auto flex flex-col items-center">
 
       <!-- Logo + Floating Olive Note Card Wrapper -->
-      <div class="relative w-full flex flex-col lg:flex-row items-center justify-center mb-5 sm:mb-7">
+      <div class="relative w-full flex flex-col lg:flex-row items-center justify-center mb-4 sm:mb-5">
         
         <!-- Tilted "Pixel Bistro" Wordmark with Hover Glitch Trigger -->
         <div id="logoGlitchTrigger" class="transform -rotate-3 cursor-pointer select-none">
@@ -242,7 +242,14 @@
 
       </div>
 
-      <!-- Tagline & Subtitle directly below the logo -->
+      <!-- "Saindo do forno em breve" Sub-badge logo header -->
+      <div class="mb-5 sm:mb-6 text-center">
+        <span class="inline-block font-pixel text-xs sm:text-sm bg-butter text-espresso px-4 py-1.5 rounded-lg border-2 border-espresso shadow-retro-sm" data-i18n="logo_subtitle_badge">
+          🥐 Saindo do forno em breve
+        </span>
+      </div>
+
+      <!-- Tagline & Subtitle directly below -->
       <div class="text-center max-w-2xl space-y-2 mb-7 sm:mb-8">
         <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-espresso tracking-tight leading-tight" data-i18n="headline">
           Grandes jogos merecem um lugar à mesa.
@@ -364,9 +371,9 @@
         </button>
       </div>
 
-      <!-- Bottom-Right Corner Label -->
+      <!-- Bottom-Right Corner Label (Alterado para "Em breve") -->
       <div class="font-medium tracking-wide text-espresso/85 ml-auto" data-i18n="bottom_right">
-        Saindo do forno
+        Em breve
       </div>
     </div>
 
@@ -385,6 +392,7 @@
         note_part1: 'A identidade visual do Pixel Bistro contará com ',
         note_bold: 'artes originais comissionadas de artistas brasileiros',
         note_part2: ', criadas especialmente para o projeto.',
+        logo_subtitle_badge: '🥐 Saindo do forno em breve',
         headline: 'Grandes jogos merecem um lugar à mesa.',
         subtitle: 'Edição Inaugural — Saindo do forno: uma nova curadoria de bundles de jogos para jogadores brasileiros.',
         email_placeholder: 'voce@exemplo.com.br',
@@ -397,13 +405,14 @@
         btn_another: 'Cadastrar outro e-mail',
         btn_copy: 'Copiar',
         btn_copied: 'Copiado!',
-        bottom_right: 'Saindo do forno'
+        bottom_right: 'Em breve'
       },
       en: {
         top_badge: 'Fresh out the oven • Inaugural Edition',
         note_part1: "Pixel Bistro's visual identity will feature ",
         note_bold: 'original artwork commissioned from Brazilian artists',
         note_part2: ', created specifically for the project.',
+        logo_subtitle_badge: '🥐 Fresh out the oven soon',
         headline: 'Great games deserve a place at the table.',
         subtitle: 'Inaugural Edition — Fresh out the oven: a new curated game bundle for Brazilian players.',
         email_placeholder: 'you@example.com',
@@ -416,7 +425,7 @@
         btn_another: 'Register another email',
         btn_copy: 'Copy',
         btn_copied: 'Copied!',
-        bottom_right: 'Fresh out the oven'
+        bottom_right: 'Coming soon'
       }
     };
 
@@ -462,7 +471,6 @@
       }, 2000);
     }
 
-    // Lógica corrigida para alternar dinamicamente os inputs ocultos de perfil e assunto
     function setRole(role) {
       selectedRole = role;
       const playerBtn = document.getElementById('rolePlayerBtn');
@@ -535,7 +543,7 @@
       const form = this;
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = true;
-      submitBtn.textContent = 'Enviando...';
+      submitBtn.textContent = currentLang === 'pt' ? 'Enviando...' : 'Sending...';
 
       const formData = new FormData(form);
 
@@ -556,14 +564,14 @@
           form.classList.add('hidden');
           stamp.classList.remove('hidden');
         } else {
-          alert(json.message || "Ocorreu um erro ao enviar. Tente novamente.");
+          alert(json.message || (currentLang === 'pt' ? "Ocorreu um erro ao enviar. Tente novamente." : "An error occurred. Please try again."));
           submitBtn.disabled = false;
           submitBtn.textContent = translations[currentLang].btn_notify;
         }
       })
       .catch(error => {
         console.error(error);
-        alert("Erro de conexão. Verifique sua internet.");
+        alert(currentLang === 'pt' ? "Erro de conexão. Verifique sua internet." : "Connection error. Check your internet.");
         submitBtn.disabled = false;
         submitBtn.textContent = translations[currentLang].btn_notify;
       });
