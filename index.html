@@ -252,19 +252,17 @@
         </p>
       </div>
 
-      <!-- Compact, Tactile Waitlist Box (Com a sua Access Key e Diferenciação de Perfil) -->
+      <!-- Compact, Tactile Waitlist Box -->
       <div class="w-full max-w-md">
         <div id="waitlistCard" class="bg-paper border-2 border-espresso rounded-2xl p-4 sm:p-5 shadow-retro">
           
           <form id="waitlistForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-3">
             
-            <!-- CHAVE DO WEB3FORMS INSERIDA -->
+            <!-- CHAVE DO WEB3FORMS -->
             <input type="hidden" name="access_key" value="08dc7ec4-aeb6-417f-a13f-fe4bdb6892bf">
             
-            <!-- Campo oculto para diferenciar no e-mail recebido -->
+            <!-- Campos dinâmicos atualizados pelo botão selecionado -->
             <input type="hidden" name="perfil_interesse" id="inputPerfil" value="Quero receber novidades (Player)">
-            
-            <!-- Assunto dinâmico do e-mail -->
             <input type="hidden" name="subject" id="inputSubject" value="Novo cadastro na Waitlist (Player) — Pixel Bistro">
 
             <input type="hidden" name="redirect" value="https://web3forms.com/success">
@@ -464,7 +462,7 @@
       }, 2000);
     }
 
-    // Lógica para diferenciar se o lead é Jogador ou Criador/Estúdio
+    // Lógica corrigida para alternar dinamicamente os inputs ocultos de perfil e assunto
     function setRole(role) {
       selectedRole = role;
       const playerBtn = document.getElementById('rolePlayerBtn');
@@ -532,7 +530,6 @@
       applyLanguage(currentLang === 'pt' ? 'en' : 'pt');
     });
 
-    // Envio assíncrono para o Web3Forms com feedback visual e animação de carimbo
     document.getElementById('waitlistForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const form = this;
