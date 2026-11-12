@@ -198,7 +198,7 @@
     </div>
   </header>
 
-  <!-- CENTERPIECE COMPOSITION (Single-Screen Focal Point) -->
+  <!-- CENTERPIECE COMPOSITION -->
   <main class="flex-grow flex items-center justify-center px-4 sm:px-8 py-6">
     <div class="w-full max-w-5xl mx-auto flex flex-col items-center">
 
@@ -252,16 +252,29 @@
         </p>
       </div>
 
-      <!-- Compact, Tactile "Coming Soon" Waitlist Box -->
+      <!-- Compact, Tactile Waitlist Box (Com a sua Access Key e Diferenciação de Perfil) -->
       <div class="w-full max-w-md">
         <div id="waitlistCard" class="bg-paper border-2 border-espresso rounded-2xl p-4 sm:p-5 shadow-retro">
           
-          <form id="waitlistForm" class="space-y-3">
+          <form id="waitlistForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-3">
+            
+            <!-- CHAVE DO WEB3FORMS INSERIDA -->
+            <input type="hidden" name="access_key" value="08dc7ec4-aeb6-417f-a13f-fe4bdb6892bf">
+            
+            <!-- Campo oculto para diferenciar no e-mail recebido -->
+            <input type="hidden" name="perfil_interesse" id="inputPerfil" value="Quero receber novidades (Player)">
+            
+            <!-- Assunto dinâmico do e-mail -->
+            <input type="hidden" name="subject" id="inputSubject" value="Novo cadastro na Waitlist (Player) — Pixel Bistro">
+
+            <input type="hidden" name="redirect" value="https://web3forms.com/success">
+
             <!-- Email Input + Submit Button -->
             <div class="flex flex-col sm:flex-row gap-2.5">
               <label for="emailInput" class="sr-only">E-mail</label>
               <input 
                 id="emailInput"
+                name="email"
                 type="email" 
                 required
                 placeholder="voce@exemplo.com.br"
@@ -270,6 +283,7 @@
               />
               <button 
                 type="submit"
+                id="submitBtn"
                 class="btn-retro shrink-0 bg-periwinkle text-white font-bold text-sm px-4 py-2.5 rounded-xl border-2 border-espresso shadow-retro-sm cursor-pointer"
                 data-i18n="btn_notify"
               >
@@ -326,7 +340,7 @@
     </div>
   </main>
 
-  <!-- BOTTOM BAR + EMERALD GREEN 2-ROW CHECKERBOARD BORDER -->
+  <!-- BOTTOM BAR -->
   <footer class="w-full">
     <div class="max-w-6xl mx-auto px-4 sm:px-8 pb-3.5 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-espresso/85">
       
@@ -450,17 +464,26 @@
       }, 2000);
     }
 
+    // Lógica para diferenciar se o lead é Jogador ou Criador/Estúdio
     function setRole(role) {
       selectedRole = role;
       const playerBtn = document.getElementById('rolePlayerBtn');
       const creatorBtn = document.getElementById('roleCreatorBtn');
+      const inputPerfil = document.getElementById('inputPerfil');
+      const inputSubject = document.getElementById('inputSubject');
 
       if (role === 'player') {
         playerBtn.className = 'px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-espresso text-paper transition-colors cursor-pointer';
         creatorBtn.className = 'px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-white text-espresso hover:bg-cream transition-colors cursor-pointer';
+        
+        inputPerfil.value = 'Quero receber novidades (Player)';
+        inputSubject.value = 'Novo cadastro na Waitlist (Player) — Pixel Bistro';
       } else {
         creatorBtn.className = 'px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-espresso text-paper transition-colors cursor-pointer';
         playerBtn.className = 'px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-white text-espresso hover:bg-cream transition-colors cursor-pointer';
+        
+        inputPerfil.value = 'Quero trabalhar com você (Creator/Studio)';
+        inputSubject.value = '🤝 Proposta de Parceria / Estúdio — Pixel Bistro';
       }
     }
 
@@ -509,24 +532,55 @@
       applyLanguage(currentLang === 'pt' ? 'en' : 'pt');
     });
 
-    document.getElementById('waitlistForm').addEventListener('submit', (e) => {
+    // Envio assíncrono para o Web3Forms com feedback visual e animação de carimbo
+    document.getElementById('waitlistForm').addEventListener('submit', function(e) {
       e.preventDefault();
-      const form = document.getElementById('waitlistForm');
-      const stamp = document.getElementById('confirmationStamp');
-      const msg = document.getElementById('confirmationMsg');
+      const form = this;
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Enviando...';
 
-      msg.textContent = selectedRole === 'player'
-        ? translations[currentLang].confirm_player
-        : translations[currentLang].confirm_creator;
+      const formData = new FormData(form);
 
-      form.classList.add('hidden');
-      stamp.classList.remove('hidden');
+      fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        body: formData
+      })
+      .then(async (response) => {
+        const json = await response.json();
+        const stamp = document.getElementById('confirmationStamp');
+        const msg = document.getElementById('confirmationMsg');
+
+        if (response.status == 200) {
+          msg.textContent = selectedRole === 'player'
+            ? translations[currentLang].confirm_player
+            : translations[currentLang].confirm_creator;
+
+          form.classList.add('hidden');
+          stamp.classList.remove('hidden');
+        } else {
+          alert(json.message || "Ocorreu um erro ao enviar. Tente novamente.");
+          submitBtn.disabled = false;
+          submitBtn.textContent = translations[currentLang].btn_notify;
+        }
+      })
+      .catch(error => {
+        console.error(error);
+        alert("Erro de conexão. Verifique sua internet.");
+        submitBtn.disabled = false;
+        submitBtn.textContent = translations[currentLang].btn_notify;
+      });
     });
 
     function resetWaitlist() {
-      document.getElementById('waitlistForm').reset();
-      document.getElementById('waitlistForm').classList.remove('hidden');
+      const form = document.getElementById('waitlistForm');
+      form.reset();
+      form.classList.remove('hidden');
       document.getElementById('confirmationStamp').classList.add('hidden');
+      const submitBtn = document.getElementById('submitBtn');
+      submitBtn.disabled = false;
+      submitBtn.textContent = translations[currentLang].btn_notify;
+      setRole('player');
     }
   </script>
 </body>
