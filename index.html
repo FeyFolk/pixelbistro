@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pixel Bistro — Em breve</title>
+  
+  <!-- Tailwind CSS -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts: Silkscreen (Pixel) + Plus Jakarta Sans (Clean Geometric Sans) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Silkscreen:wght@400;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            paper: '#F7F6F2',
+            cream: '#EFECE6',
+            espresso: '#383028',
+            periwinkle: '#645CE8',
+            kelly: '#169C4B',
+            olive: '#6B7843',
+            butter: '#F6C945'
+          },
+          fontFamily: {
+            pixel: ['"Silkscreen"', 'monospace'],
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+          },
+          boxShadow: {
+            'retro': '4px 4px 0px #383028',
+            'retro-sm': '2px 2px 0px #383028',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    body {
+      background-color: #F7F6F2;
+      color: #383028;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+    }
+
+    /* Subtle Diagonal Picnic Tablecloth Plaid Overlay (Matching Reference Slide) */
+    .bg-gingham {
+      background-color: #F7F6F2;
+      background-image:
+        repeating-linear-gradient(
+          45deg,
+          rgba(56, 48, 40, 0.032) 0px,
+          rgba(56, 48, 40, 0.032) 34px,
+          transparent 34px,
+          transparent 68px
+        ),
+        repeating-linear-gradient(
+          -45deg,
+          rgba(56, 48, 40, 0.032) 0px,
+          rgba(56, 48, 40, 0.032) 34px,
+          transparent 34px,
+          transparent 68px
+        ),
+        repeating-linear-gradient(
+          0deg,
+          rgba(56, 48, 40, 0.012) 0px,
+          rgba(56, 48, 40, 0.012) 1px,
+          transparent 1px,
+          transparent 3px
+        );
+    }
+
+    /* Full-Width 2-Row Pixel Checkerboard Borders */
+    .checker-purple {
+      height: 32px;
+      width: 100%;
+      background-color: #F7F6F2;
+      background-image:
+        linear-gradient(45deg, #645CE8 25%, transparent 25%),
+        linear-gradient(-45deg, #645CE8 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #645CE8 75%),
+        linear-gradient(-45deg, transparent 75%, #645CE8 75%);
+      background-size: 32px 32px;
+      background-position: 0 0, 0 16px, 16px -16px, -16px 0;
+      image-rendering: pixelated;
+    }
+
+    .checker-green {
+      height: 32px;
+      width: 100%;
+      background-color: #F7F6F2;
+      background-image:
+        linear-gradient(45deg, #169C4B 25%, transparent 25%),
+        linear-gradient(-45deg, #169C4B 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, #169C4B 75%),
+        linear-gradient(-45deg, transparent 75%, #169C4B 75%);
+      background-size: 32px 32px;
+      background-position: 0 0, 0 16px, 16px -16px, -16px 0;
+      image-rendering: pixelated;
+    }
+
+    /* Tactile Retro Button */
+    .btn-retro {
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+    .btn-retro:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: 6px 6px 0px #383028;
+    }
+    .btn-retro:active {
+      transform: translate(2px, 2px);
+      box-shadow: 2px 2px 0px #383028;
+    }
+
+    /* Subtle Pencil Float */
+    @keyframes pencilFloat {
+      0%, 100% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-4px) rotate(3deg); }
+    }
+    .animate-pencil {
+      animation: pencilFloat 3s ease-in-out infinite;
+    }
+
+    /* Ticket Pop Animation */
+    @keyframes ticketPop {
+      0% { transform: scale(0.92); opacity: 0; }
+      70% { transform: scale(1.03); opacity: 1; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+    .animate-ticket {
+      animation: ticketPop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
+    }
+
+    .pixel-art {
+      image-rendering: pixelated;
+      shape-rendering: crispEdges;
+    }
+  </style>
+</head>
+<body class="bg-gingham min-h-screen flex flex-col justify-between selection:bg-periwinkle selection:text-white overflow-x-hidden">
+
+  <!-- TOP PERIWINKLE PURPLE 2-ROW CHECKERBOARD BORDER -->
+  <header class="w-full">
+    <div class="checker-purple" aria-hidden="true"></div>
+    
+    <!-- Minimal Corner Pill Bar -->
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 pt-4 sm:pt-5 flex items-center justify-between">
+      <div class="inline-flex items-center gap-2 bg-white/90 border-2 border-espresso rounded-full px-3.5 py-1 shadow-retro-sm">
+        <span class="w-2 h-2 rounded-full bg-kelly animate-pulse"></span>
+        <span class="font-pixel text-[11px] sm:text-xs text-espresso tracking-wide" data-i18n="top_badge">Em breve • Edição Inaugural</span>
+      </div>
+
+      <!-- Subtle PT / EN Toggle -->
+      <button 
+        id="langToggleBtn"
+        type="button"
+        aria-label="Alternar idioma / Switch language"
+        class="flex items-center bg-white border-2 border-espresso rounded-lg p-0.5 shadow-retro-sm text-[11px] font-pixel cursor-pointer select-none"
+      >
+        <span id="langPtBadge" class="px-2 py-0.5 rounded bg-espresso text-paper transition-colors">PT</span>
+        <span id="langEnBadge" class="px-2 py-0.5 rounded text-espresso transition-colors">EN</span>
+      </button>
+    </div>
+  </header>
+
+  <!-- CENTERPIECE COMPOSITION (Single-Screen Focal Point) -->
+  <main class="flex-grow flex items-center justify-center px-4 sm:px-8 py-6">
+    <div class="w-full max-w-5xl mx-auto flex flex-col items-center">
+
+      <!-- Logo + Floating Olive Note Card Wrapper -->
+      <div class="relative w-full flex flex-col lg:flex-row items-center justify-center mb-5 sm:mb-7">
+        
+        <!-- Tilted "Pixel Bistro" Wordmark (-4deg matching slide) -->
+        <div class="transform -rotate-3 hover:rotate-0 transition-transform duration-300 text-center select-none">
+          <h1 class="leading-[0.84] text-espresso">
+            <span class="block font-pixel text-6xl sm:text-8xl md:text-[7.2rem] tracking-tight">Pixel</span>
+            <span class="block font-sans font-extrabold text-6xl sm:text-8xl md:text-[7rem] tracking-tight -mt-1 sm:-mt-2">Bistro</span>
+          </h1>
+        </div>
+
+        <!-- Olive Note Card + Diagonal Pixel Pencil (Positioned to the right on desktop, centered below on mobile) -->
+        <div class="mt-7 lg:mt-0 lg:absolute lg:right-0 xl:right-4 lg:top-1/2 lg:-translate-y-1/2 max-w-[285px] sm:max-w-[300px] z-10">
+          <div class="relative bg-olive text-paper rounded-xl border-2 border-espresso px-4 py-3.5 shadow-retro">
+            
+            <!-- Cute Yellow/Pink Pixel Pencil with Blue Squiggle Line -->
+            <div class="absolute -top-9 right-3 animate-pencil pointer-events-none" aria-hidden="true">
+              <svg width="46" height="42" viewBox="0 0 24 22" fill="none" xmlns="http://www.w3.org/2000/svg" class="pixel-art">
+                <path d="M4 19C7 18 9 20 12 19C15 18 17 20 20 19" stroke="#645CE8" stroke-width="1.3" stroke-linecap="round"/>
+                <g transform="rotate(-42 12 10)">
+                  <rect x="16" y="7" width="3" height="4" fill="#F28B9E" stroke="#383028" stroke-width="1"/>
+                  <rect x="14" y="7" width="2" height="4" fill="#D4D2CC" stroke="#383028" stroke-width="1"/>
+                  <rect x="6" y="7" width="8" height="4" fill="#F6C945" stroke="#383028" stroke-width="1"/>
+                  <polygon points="6,7 2,9 6,11" fill="#E8C396" stroke="#383028" stroke-width="1"/>
+                  <polygon points="3.5,8.2 1.8,9 3.5,9.8" fill="#383028"/>
+                </g>
+              </svg>
+            </div>
+
+            <p class="text-xs leading-relaxed font-medium text-center">
+              <span data-i18n="note_part1">A identidade visual do Pixel Bistro contará com </span>
+              <strong class="font-extrabold text-white" data-i18n="note_bold">artes originais comissionadas de artistas brasileiros</strong><span data-i18n="note_part2">, criadas especialmente para o projeto.</span>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Tagline & Subtitle directly below the logo -->
+      <div class="text-center max-w-2xl space-y-2 mb-7 sm:mb-8">
+        <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-espresso tracking-tight leading-tight" data-i18n="headline">
+          Grandes jogos merecem um lugar à mesa.
+        </h2>
+        <p class="text-sm sm:text-base md:text-lg text-espresso/80 font-medium" data-i18n="subtitle">
+          Edição Inaugural — Em breve, uma nova curadoria de bundles de jogos para jogadores brasileiros.
+        </p>
+      </div>
+
+      <!-- Compact, Tactile "Coming Soon" Waitlist Box -->
+      <div class="w-full max-w-md">
+        <div id="waitlistCard" class="bg-paper border-2 border-espresso rounded-2xl p-4 sm:p-5 shadow-retro">
+          
+          <form id="waitlistForm" class="space-y-3">
+            <!-- Email Input + Submit Button -->
+            <div class="flex flex-col sm:flex-row gap-2.5">
+              <label for="emailInput" class="sr-only">E-mail</label>
+              <input 
+                id="emailInput"
+                type="email" 
+                required
+                placeholder="voce@exemplo.com.br"
+                data-i18n-placeholder="email_placeholder"
+                class="flex-grow px-3.5 py-2.5 rounded-xl bg-white border-2 border-espresso text-espresso placeholder:text-espresso/45 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-periwinkle"
+              />
+              <button 
+                type="submit"
+                class="btn-retro shrink-0 bg-periwinkle text-white font-bold text-sm px-4 py-2.5 rounded-xl border-2 border-espresso shadow-retro-sm cursor-pointer"
+                data-i18n="btn_notify"
+              >
+                Avise-me no lançamento
+              </button>
+            </div>
+
+            <!-- Lightweight Role Toggle Chips -->
+            <div class="flex items-center justify-center gap-2 pt-0.5" role="radiogroup" aria-label="Perfil de interesse">
+              <button 
+                type="button"
+                id="rolePlayerBtn"
+                onclick="setRole('player')"
+                class="px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-espresso text-paper transition-colors cursor-pointer"
+                data-i18n="chip_player"
+              >
+                🎮 Sou Jogador
+              </button>
+              <button 
+                type="button"
+                id="roleCreatorBtn"
+                onclick="setRole('creator')"
+                class="px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-white text-espresso hover:bg-cream transition-colors cursor-pointer"
+                data-i18n="chip_creator"
+              >
+                ✏️ Sou Dev ou Artista
+              </button>
+            </div>
+          </form>
+
+          <!-- Confirmation Stamp State (Hidden until submit) -->
+          <div id="confirmationStamp" class="hidden animate-ticket text-center py-2 space-y-2">
+            <div class="inline-flex items-center gap-2 bg-kelly text-white font-pixel text-xs px-3.5 py-1.5 rounded-lg border-2 border-espresso shadow-retro-sm">
+              <!-- Tiny Pixel Ticket Icon -->
+              <svg width="16" height="16" viewBox="0 0 16 16" fill="none" class="pixel-art" aria-hidden="true">
+                <rect x="2" y="4" width="12" height="8" fill="#F6C945" stroke="#383028" stroke-width="1.5"/>
+                <rect x="6" y="7" width="4" height="2" fill="#383028"/>
+              </svg>
+              <span data-i18n="stamp_title">Lugar reservado na mesa!</span>
+            </div>
+            <p id="confirmationMsg" class="text-xs sm:text-sm text-espresso/85 font-medium"></p>
+            <button 
+              type="button" 
+              onclick="resetWaitlist()" 
+              class="text-[11px] font-pixel underline text-periwinkle hover:text-espresso cursor-pointer"
+              data-i18n="btn_another"
+            >
+              Cadastrar outro e-mail
+            </button>
+          </div>
+
+        </div>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- BOTTOM BAR + EMERALD GREEN 2-ROW CHECKERBOARD BORDER -->
+  <footer class="w-full">
+    <div class="max-w-6xl mx-auto px-4 sm:px-8 pb-3.5 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-espresso/85">
+      
+      <!-- Prominent Contact Email Badge (Click-to-Copy + Mailto) -->
+      <div class="inline-flex items-center bg-white/95 border-2 border-espresso rounded-xl shadow-retro-sm overflow-hidden">
+        <a 
+          href="mailto:fey@pixelbistro.com.br" 
+          title="Enviar e-mail para fey@pixelbistro.com.br"
+          class="px-3 py-1.5 font-bold text-espresso hover:text-periwinkle transition-colors flex items-center gap-1.5"
+        >
+          <svg class="w-4 h-4 shrink-0 text-periwinkle" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+          <span>fey@pixelbistro.com.br</span>
+        </a>
+        <button 
+          type="button"
+          id="copyEmailBtn"
+          onclick="copyContactEmail()"
+          aria-label="Copiar e-mail fey@pixelbistro.com.br"
+          class="px-2.5 py-1.5 bg-cream hover:bg-butter border-l-2 border-espresso font-pixel text-[10px] sm:text-[11px] text-espresso transition-colors cursor-pointer flex items-center gap-1"
+        >
+          <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+          <span id="copyEmailLabel" data-i18n="btn_copy">Copiar</span>
+        </button>
+      </div>
+
+      <!-- Bottom-Right Corner Label echoing Slide's "Founding Partners Pitch" -->
+      <div class="font-medium tracking-wide text-espresso/85 ml-auto" data-i18n="bottom_right">
+        Em breve • 2026
+      </div>
+    </div>
+
+    <div class="checker-green" aria-hidden="true"></div>
+  </footer>
+
+  <!-- INTERACTIVE SCRIPT (Language Toggle, Copy Email & Waitlist Confirmation) -->
+  <script>
+    let currentLang = 'pt';
+    let selectedRole = 'player';
+    let isEmailCopied = false;
+
+    const translations = {
+      pt: {
+        top_badge: 'Em breve • Edição Inaugural',
+        note_part1: 'A identidade visual do Pixel Bistro contará com ',
+        note_bold: 'artes originais comissionadas de artistas brasileiros',
+        note_part2: ', criadas especialmente para o projeto.',
+        headline: 'Grandes jogos merecem um lugar à mesa.',
+        subtitle: 'Edição Inaugural — Em breve, uma nova curadoria de bundles de jogos para jogadores brasileiros.',
+        email_placeholder: 'voce@exemplo.com.br',
+        btn_notify: 'Avise-me no lançamento',
+        chip_player: '🎮 Sou Jogador',
+        chip_creator: '✏️ Sou Dev ou Artista',
+        stamp_title: 'Lugar reservado na mesa!',
+        confirm_player: 'Anotamos seu e-mail! Você receberá o convite assim que o primeiro cardápio abrir.',
+        confirm_creator: 'Recebemos seu contato! Nossa curadoria entrará em contato sobre parcerias e comissões.',
+        btn_another: 'Cadastrar outro e-mail',
+        btn_copy: 'Copiar',
+        btn_copied: 'Copiado!',
+        bottom_right: 'Em breve • 2026'
+      },
+      en: {
+        top_badge: 'Coming Soon • Inaugural Edition',
+        note_part1: "Pixel Bistro's visual identity will feature ",
+        note_bold: 'original artwork commissioned from Brazilian artists',
+        note_part2: ', created specifically for the project.',
+        headline: 'Great games deserve a place at the table.',
+        subtitle: 'Inaugural Edition — Launching soon: a new curated game bundle for Brazilian players.',
+        email_placeholder: 'you@example.com',
+        btn_notify: 'Notify me',
+        chip_player: "🎮 I'm a Player",
+        chip_creator: "✏️ I'm a Dev or Artist",
+        stamp_title: 'Seat reserved at the table!',
+        confirm_player: "You're on the list! We'll send your invite as soon as our inaugural menu opens.",
+        confirm_creator: 'Got your email! Our curators will reach out regarding games and artist commissions.',
+        btn_another: 'Register another email',
+        btn_copy: 'Copy',
+        btn_copied: 'Copied!',
+        bottom_right: 'Coming Soon • 2026'
+      }
+    };
+
+    function copyContactEmail() {
+      const email = 'fey@pixelbistro.com.br';
+      const tempInput = document.createElement('input');
+      tempInput.value = email;
+      document.body.appendChild(tempInput);
+      tempInput.select();
+      try {
+        document.execCommand('copy');
+      } catch (err) {
+        console.error('Copy failed', err);
+      }
+      document.body.removeChild(tempInput);
+
+      isEmailCopied = true;
+      const btn = document.getElementById('copyEmailBtn');
+      const label = document.getElementById('copyEmailLabel');
+      label.textContent = translations[currentLang].btn_copied;
+      btn.classList.remove('bg-cream', 'hover:bg-butter', 'text-espresso');
+      btn.classList.add('bg-kelly', 'text-white');
+
+      setTimeout(() => {
+        isEmailCopied = false;
+        label.textContent = translations[currentLang].btn_copy;
+        btn.classList.remove('bg-kelly', 'text-white');
+        btn.classList.add('bg-cream', 'hover:bg-butter', 'text-espresso');
+      }, 2000);
+    }
+
+    function setRole(role) {
+      selectedRole = role;
+      const playerBtn = document.getElementById('rolePlayerBtn');
+      const creatorBtn = document.getElementById('roleCreatorBtn');
+
+      if (role === 'player') {
+        playerBtn.className = 'px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-espresso text-paper transition-colors cursor-pointer';
+        creatorBtn.className = 'px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-white text-espresso hover:bg-cream transition-colors cursor-pointer';
+      } else {
+        creatorBtn.className = 'px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-espresso text-paper transition-colors cursor-pointer';
+        playerBtn.className = 'px-3 py-1 rounded-full text-xs font-bold border-2 border-espresso bg-white text-espresso hover:bg-cream transition-colors cursor-pointer';
+      }
+    }
+
+    function applyLanguage(lang) {
+      currentLang = lang;
+      document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en';
+
+      const ptBadge = document.getElementById('langPtBadge');
+      const enBadge = document.getElementById('langEnBadge');
+
+      if (lang === 'pt') {
+        ptBadge.className = 'px-2 py-0.5 rounded bg-espresso text-paper transition-colors';
+        enBadge.className = 'px-2 py-0.5 rounded text-espresso transition-colors';
+      } else {
+        enBadge.className = 'px-2 py-0.5 rounded bg-espresso text-paper transition-colors';
+        ptBadge.className = 'px-2 py-0.5 rounded text-espresso transition-colors';
+      }
+
+      document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (translations[lang][key]) {
+          el.textContent = translations[lang][key];
+        }
+      });
+
+      document.querySelectorAll('[data-i18n-placeholder]').forEach(el => {
+        const key = el.getAttribute('data-i18n-placeholder');
+        if (translations[lang][key]) {
+          el.placeholder = translations[lang][key];
+        }
+      });
+
+      // Update confirmation text if currently visible
+      const confirmMsg = document.getElementById('confirmationMsg');
+      if (!document.getElementById('confirmationStamp').classList.contains('hidden')) {
+        confirmMsg.textContent = selectedRole === 'player'
+          ? translations[lang].confirm_player
+          : translations[lang].confirm_creator;
+      }
+
+      // Preserve copied label state if active
+      if (isEmailCopied) {
+        document.getElementById('copyEmailLabel').textContent = translations[lang].btn_copied;
+      }
+    }
+
+    document.getElementById('langToggleBtn').addEventListener('click', () => {
+      applyLanguage(currentLang === 'pt' ? 'en' : 'pt');
+    });
+
+    document.getElementById('waitlistForm').addEventListener('submit', (e) => {
+      e.preventDefault();
+      const form = document.getElementById('waitlistForm');
+      const stamp = document.getElementById('confirmationStamp');
+      const msg = document.getElementById('confirmationMsg');
+
+      msg.textContent = selectedRole === 'player'
+        ? translations[currentLang].confirm_player
+        : translations[currentLang].confirm_creator;
+
+      form.classList.add('hidden');
+      stamp.classList.remove('hidden');
+    });
+
+    function resetWaitlist() {
+      document.getElementById('waitlistForm').reset();
+      document.getElementById('waitlistForm').classList.remove('hidden');
+      document.getElementById('confirmationStamp').classList.add('hidden');
+    }
+  </script>
+</body>
+</html>
