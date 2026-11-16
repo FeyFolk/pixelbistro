@@ -24,7 +24,8 @@
             periwinkle: '#645CE8',
             kelly: '#169C4B',
             olive: '#6B7843',
-            butter: '#F6C945'
+            butter: '#F6C945',
+            terracotta: '#D65A31'
           },
           fontFamily: {
             pixel: ['"Silkscreen"', 'monospace'],
@@ -115,21 +116,6 @@
       box-shadow: 2px 2px 0px #383028;
     }
 
-    /* Feature Card Glow & Lift on Hover (Green / Purple alternation) */
-    .feature-card {
-      transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease;
-    }
-    .feature-card:nth-child(odd):hover {
-      transform: translate(-2px, -2px);
-      border-color: #645CE8;
-      box-shadow: 6px 6px 0px #645CE8;
-    }
-    .feature-card:nth-child(even):hover {
-      transform: translate(-2px, -2px);
-      border-color: #169C4B;
-      box-shadow: 6px 6px 0px #169C4B;
-    }
-
     /* Subtle Pencil Float */
     @keyframes pencilFloat {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
@@ -149,14 +135,9 @@
       animation: ticketPop 0.35s cubic-bezier(0.2, 0.9, 0.3, 1.1) forwards;
     }
 
-    /* Logo Glitch Effect (Fixed inside wrapper to prevent jumping) */
-    .glitch-wrapper {
-      transform: rotate(-3deg);
-      display: inline-block;
-    }
-    
+    /* Logo Glitch Effect (0.55s One-Shot on Hover) */
     .glitch-target.is-glitching {
-      animation: glitch-burst 0.5s cubic-bezier(.25, .46, .45, .94) 1 forwards;
+      animation: glitch-burst 0.55s cubic-bezier(.25, .46, .45, .94) 1 forwards;
     }
 
     @keyframes glitch-burst {
@@ -165,24 +146,20 @@
         text-shadow: none;
       }
       15% {
-        transform: translate(-5px, 2px);
-        text-shadow: 6px -3px 0px #645CE8, -6px 3px 0px #169C4B;
+        transform: translate(-3px, 2px);
+        text-shadow: 4px -2px 0px #645CE8, -4px 2px 0px #169C4B;
       }
-      30% {
-        transform: translate(4px, -3px);
-        text-shadow: -6px -2px 0px #F6C945, 5px 3px 0px #645CE8;
-      }
-      50% {
-        transform: translate(-3px, 3px);
-        text-shadow: 4px 4px 0px #169C4B, -4px -4px 0px #F6C945;
-      }
-      70% {
+      35% {
         transform: translate(3px, -2px);
-        text-shadow: -5px 2px 0px #645CE8, 4px -2px 0px #169C4B;
+        text-shadow: -4px -2px 0px #F6C945, 3px 2px 0px #645CE8;
       }
-      85% {
+      55% {
         transform: translate(-2px, 1px);
-        text-shadow: 3px -2px 0px #F6C945, -3px 2px 0px #645CE8;
+        text-shadow: 2px 3px 0px #169C4B, -2px -3px 0px #F6C945;
+      }
+      75% {
+        transform: translate(2px, -1px);
+        text-shadow: -3px 1px 0px #645CE8, 3px -1px 0px #169C4B;
       }
       100% {
         transform: translate(0, 0);
@@ -204,9 +181,9 @@
     
     <!-- Minimal Corner Pill Bar -->
     <div class="max-w-6xl mx-auto px-4 sm:px-8 pt-4 sm:pt-5 flex items-center justify-between">
-      <div class="inline-flex items-center gap-2 bg-white/90 border-2 border-espresso rounded-full px-3.5 py-1 shadow-retro-sm">
-        <span class="w-2 h-2 rounded-full bg-kelly animate-pulse"></span>
-        <span class="font-pixel text-[11px] sm:text-xs text-espresso tracking-wide" data-i18n="top_badge">Saindo do forno • Edição Inaugural</span>
+      <div class="inline-flex items-center gap-2 bg-white/95 border-2 border-espresso rounded-full px-3.5 py-1 shadow-retro-sm">
+        <span class="w-2.5 h-2.5 rounded-full bg-kelly animate-pulse"></span>
+        <span class="font-pixel text-[11px] sm:text-xs text-espresso tracking-wide uppercase" data-i18n="top_badge">Saindo do forno</span>
       </div>
 
       <!-- Subtle PT / EN Toggle -->
@@ -223,20 +200,34 @@
   </header>
 
   <!-- CENTERPIECE COMPOSITION -->
-  <main class="flex-grow flex flex-col justify-center px-4 sm:px-8 py-6">
+  <main class="flex-grow flex items-center justify-center px-4 sm:px-8 py-5 sm:py-6">
     <div class="w-full max-w-5xl mx-auto flex flex-col items-center">
 
       <!-- Logo + Floating Olive Note Card Wrapper -->
-      <div class="relative w-full flex flex-col lg:flex-row items-center justify-center mb-4 sm:mb-5">
-        
-        <!-- Tilted "Pixel Bistro" Wordmark with Hover Glitch Trigger -->
-        <div id="logoGlitchTrigger" class="glitch-wrapper cursor-pointer select-none">
+      <div class="relative w-full flex flex-col lg:flex-row items-center justify-center mb-5 sm:mb-6">
+
+        <!-- Centered Stacked Wordmark with Yellow Corner Sparkles -->
+        <div id="logoGlitchTrigger" class="relative inline-flex flex-col items-center cursor-pointer select-none">
+          <!-- Left Yellow Pixel Corner Accent -->
+          <svg class="w-6 h-6 sm:w-7 sm:h-7 absolute -left-8 sm:-left-11 top-3 pixel-art" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <rect x="2" y="2" width="3" height="3" fill="#F6C945"/>
+            <rect x="5" y="5" width="3" height="3" fill="#F6C945"/>
+            <rect x="2" y="8" width="6" height="3" fill="#E8A825"/>
+          </svg>
+
           <div id="logoGlitchTarget" class="glitch-target text-center">
-            <h1 class="leading-[0.84] text-espresso">
-              <span class="block font-pixel text-6xl sm:text-8xl md:text-[7.2rem] tracking-tight">Pixel</span>
-              <span class="block font-sans font-extrabold text-6xl sm:text-8xl md:text-[7rem] tracking-tight -mt-1 sm:-mt-2">Bistro</span>
+            <h1 class="leading-[0.86] text-espresso">
+              <span class="block font-pixel text-5xl sm:text-7xl md:text-[5.5rem] tracking-tight uppercase">PIXEL</span>
+              <span class="block font-sans font-extrabold text-5xl sm:text-7xl md:text-[5.3rem] tracking-tight -mt-1">Bistro</span>
             </h1>
           </div>
+
+          <!-- Right Yellow Pixel Corner Accent -->
+          <svg class="w-6 h-6 sm:w-7 sm:h-7 absolute -right-8 sm:-right-11 top-3 pixel-art" viewBox="0 0 12 12" fill="none" aria-hidden="true">
+            <rect x="7" y="2" width="3" height="3" fill="#F6C945"/>
+            <rect x="4" y="5" width="3" height="3" fill="#F6C945"/>
+            <rect x="4" y="8" width="6" height="3" fill="#E8A825"/>
+          </svg>
         </div>
 
         <!-- Olive Note Card + Diagonal Pixel Pencil -->
@@ -266,27 +257,61 @@
 
       </div>
 
-      <!-- "Saindo do forno em breve" Sub-badge logo header -->
-      <div class="mb-5 sm:mb-6 text-center">
-        <span class="inline-block font-pixel text-xs sm:text-sm bg-butter text-espresso px-4 py-1.5 rounded-lg border-2 border-espresso shadow-retro-sm" data-i18n="logo_subtitle_badge">
-          🥐 Saindo do forno em breve
-        </span>
-      </div>
-
-      <!-- Tagline & Subtitle directly below -->
-      <div class="text-center max-w-2xl space-y-2 mb-7 sm:mb-8">
+      <!-- Headline & Subtitle -->
+      <div class="text-center max-w-2xl space-y-1.5 mb-4 sm:mb-5">
         <h2 class="text-2xl sm:text-3xl md:text-4xl font-extrabold text-espresso tracking-tight leading-tight" data-i18n="headline">
-          Grandes jogos merecem um lugar à mesa.
+          Estamos preparando algo especial.
         </h2>
-        <p class="text-sm sm:text-base md:text-lg text-espresso/80 font-medium" data-i18n="subtitle">
-          Edição Inaugural — Saindo do forno: uma nova curadoria de bundles de jogos para jogadores brasileiros.
+        <p class="text-sm sm:text-base md:text-lg text-espresso/85 font-medium" data-i18n="subtitle">
+          Uma nova maneira de descobrir grandes jogos está chegando ao Brasil.
         </p>
       </div>
 
+      <!-- Bold Yellow "EM CONSTRUÇÃO!" Banner with Red Pixel Arrows -->
+      <div class="flex items-center justify-center gap-3 sm:gap-4 mb-3">
+        <!-- Left Red Pixel Chevron -->
+        <svg class="w-5 h-7 sm:w-6 sm:h-8 shrink-0 pixel-art" viewBox="0 0 8 12" fill="none" aria-hidden="true">
+          <rect x="0" y="0" width="3" height="3" fill="#D64545"/>
+          <rect x="3" y="3" width="3" height="3" fill="#D64545"/>
+          <rect x="5" y="4.5" width="3" height="3" fill="#D64545"/>
+          <rect x="3" y="6" width="3" height="3" fill="#D64545"/>
+          <rect x="0" y="9" width="3" height="3" fill="#D64545"/>
+        </svg>
+
+        <div class="bg-butter border-[2.5px] border-espresso rounded-xl px-6 sm:px-10 py-2.5 sm:py-3 shadow-retro">
+          <span class="font-pixel text-lg sm:text-2xl md:text-[1.7rem] font-bold text-espresso tracking-wider uppercase" data-i18n="construction_banner">
+            EM CONSTRUÇÃO!
+          </span>
+        </div>
+
+        <!-- Right Red Pixel Chevron -->
+        <svg class="w-5 h-7 sm:w-6 sm:h-8 shrink-0 pixel-art" viewBox="0 0 8 12" fill="none" aria-hidden="true">
+          <rect x="5" y="0" width="3" height="3" fill="#D64545"/>
+          <rect x="2" y="3" width="3" height="3" fill="#D64545"/>
+          <rect x="0" y="4.5" width="3" height="3" fill="#D64545"/>
+          <rect x="2" y="6" width="3" height="3" fill="#D64545"/>
+          <rect x="5" y="9" width="3" height="3" fill="#D64545"/>
+        </svg>
+      </div>
+
+      <!-- Tagline below construction banner -->
+      <p class="text-sm sm:text-base font-bold text-espresso/90 mb-5 sm:mb-6 text-center" data-i18n="tagline">
+        Grandes jogos merecem um lugar à mesa.
+      </p>
+
       <!-- Compact, Tactile Waitlist Box -->
-      <div class="w-full max-w-md mb-16 sm:mb-20">
-        <div id="waitlistCard" class="bg-paper border-2 border-espresso rounded-2xl p-4 sm:p-5 shadow-retro">
+      <div class="w-full max-w-lg">
+        <div id="waitlistCard" class="bg-paper/95 border-2 border-espresso rounded-2xl p-4 sm:p-5 shadow-retro">
           
+          <div class="text-center mb-3">
+            <h3 class="text-base sm:text-lg font-extrabold text-espresso" data-i18n="waitlist_title">
+              Quer acompanhar a inauguração?
+            </h3>
+            <p class="text-xs sm:text-sm text-espresso/75 font-medium" data-i18n="waitlist_subtitle">
+              Receba novidades sobre nossa primeira edição.
+            </p>
+          </div>
+
           <form id="waitlistForm" action="https://api.web3forms.com/submit" method="POST" class="space-y-3">
             
             <!-- CHAVE DO WEB3FORMS -->
@@ -296,24 +321,27 @@
             <input type="hidden" name="perfil_interesse" id="inputPerfil" value="Quero receber novidades (Player)">
             <input type="hidden" name="subject" id="inputSubject" value="Novo cadastro na Waitlist (Player) — Pixel Bistro">
 
-            <input type="hidden" name="redirect" value="https://web3forms.com/success">
-
             <!-- Email Input + Submit Button -->
             <div class="flex flex-col sm:flex-row gap-2.5">
-              <label for="emailInput" class="sr-only">E-mail</label>
-              <input 
-                id="emailInput"
-                name="email"
-                type="email" 
-                required
-                placeholder="voce@exemplo.com.br"
-                data-i18n-placeholder="email_placeholder"
-                class="flex-grow px-3.5 py-2.5 rounded-xl bg-white border-2 border-espresso text-espresso placeholder:text-espresso/45 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-periwinkle"
-              />
+              <div class="relative flex-grow">
+                <span class="absolute inset-y-0 left-3.5 flex items-center pointer-events-none text-periwinkle">
+                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </span>
+                <label for="emailInput" class="sr-only">E-mail</label>
+                <input 
+                  id="emailInput"
+                  name="email"
+                  type="email" 
+                  required
+                  placeholder="Seu melhor e-mail"
+                  data-i18n-placeholder="email_placeholder"
+                  class="w-full pl-10 pr-3.5 py-2.5 rounded-xl bg-white border-2 border-espresso text-espresso placeholder:text-espresso/45 text-sm font-medium focus:outline-none focus:ring-2 focus:ring-periwinkle"
+                />
+              </div>
               <button 
                 type="submit"
                 id="submitBtn"
-                class="btn-retro shrink-0 bg-periwinkle text-white font-bold text-sm px-4 py-2.5 rounded-xl border-2 border-espresso shadow-retro-sm cursor-pointer"
+                class="btn-retro shrink-0 bg-periwinkle text-white font-bold text-sm px-5 py-2.5 rounded-xl border-2 border-espresso shadow-retro-sm cursor-pointer"
                 data-i18n="btn_notify"
               >
                 Acompanhe de perto
@@ -321,7 +349,7 @@
             </div>
 
             <!-- Lightweight Role Toggle Chips -->
-            <div class="flex items-center justify-center gap-2 pt-0.5" role="radiogroup" aria-label="Perfil de interesse">
+            <div class="flex flex-wrap items-center justify-center gap-2 pt-0.5" role="radiogroup" aria-label="Perfil de interesse">
               <button 
                 type="button"
                 id="rolePlayerBtn"
@@ -363,94 +391,11 @@
             </button>
           </div>
 
+          <!-- Inline Status Message Box (Substitui alert) -->
+          <div id="formErrorBox" class="hidden mt-3 text-center text-xs font-bold text-terracotta bg-white border-2 border-espresso rounded-xl px-3 py-2 shadow-retro-sm"></div>
+
         </div>
       </div>
-
-      <!-- SEÇÃO: O JEITO PIXEL BISTRO (Fundo Claro Original) -->
-      <section class="w-full max-w-5xl mx-auto pt-8 border-t-2 border-espresso/15">
-        <div class="text-center mb-10">
-          <span class="inline-block font-pixel text-[11px] bg-kelly/10 text-kelly px-3 py-1 rounded-md border border-kelly/30 mb-3">
-            ■ O JEITO PIXEL BISTRO
-          </span>
-          <h3 class="text-3xl sm:text-4xl font-extrabold text-espresso tracking-tight mb-3" data-i18n="features_title">
-            Mais que um bundle de jogos.
-          </h3>
-          <p class="text-base text-espresso/75 max-w-xl mx-auto font-medium" data-i18n="features_subtitle">
-            Uma seleção feita com carinho, pensada para aproximar bons jogos de novos jogadores.
-          </p>
-        </div>
-
-        <!-- Grid de 6 Cards com hover iluminado em verde e roxo -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          <!-- Card 1 -->
-          <div class="feature-card bg-white border-2 border-espresso rounded-2xl p-6 shadow-retro relative flex flex-col justify-between">
-            <div class="w-10 h-10 rounded-xl bg-cream border-2 border-espresso flex items-center justify-center mb-4 text-periwinkle">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg text-espresso mb-2" data-i18n="feat_1_title">Curadoria de verdade</h4>
-              <p class="text-sm text-espresso/75 leading-relaxed" data-i18n="feat_1_desc">Cada edição reúne jogos escolhidos a dedo. Nada de encher a seleção só para aumentar a quantidade.</p>
-            </div>
-          </div>
-
-          <!-- Card 2 -->
-          <div class="feature-card bg-white border-2 border-espresso rounded-2xl p-6 shadow-retro relative flex flex-col justify-between">
-            <div class="w-10 h-10 rounded-xl bg-cream border-2 border-espresso flex items-center justify-center mb-4 text-kelly">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path stroke-linecap="round" stroke-linejoin="round" d="M2 12h20M12 2a15.3 15.3 0 014 10 15.3 15.3 0 01-4 10 15.3 15.3 0 01-4-10 15.3 15.3 0 014-10z"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg text-espresso mb-2" data-i18n="feat_2_title">Feito para o Brasil</h4>
-              <p class="text-sm text-espresso/75 leading-relaxed" data-i18n="feat_2_desc">Preços em reais e uma experiência pensada para jogadores brasileiros.</p>
-            </div>
-          </div>
-
-          <!-- Card 3 -->
-          <div class="feature-card bg-white border-2 border-espresso rounded-2xl p-6 shadow-retro relative flex flex-col justify-between">
-            <div class="w-10 h-10 rounded-xl bg-cream border-2 border-espresso flex items-center justify-center mb-4 text-butter">
-              <svg class="w-5 h-5 text-espresso" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-2m-4-3H9M7 16h6M7 12h6"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg text-espresso mb-2" data-i18n="feat_3_title">Segredos da Cozinha</h4>
-              <p class="text-sm text-espresso/75 leading-relaxed" data-i18n="feat_3_desc">Uma revista digital gratuita com histórias, inspirações e bastidores dos jogos.</p>
-            </div>
-          </div>
-
-          <!-- Card 4 -->
-          <div class="feature-card bg-white border-2 border-espresso rounded-2xl p-6 shadow-retro relative flex flex-col justify-between">
-            <div class="w-10 h-10 rounded-xl bg-cream border-2 border-espresso flex items-center justify-center mb-4 text-periwinkle">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M15 7a2 2 0 012 2m4 0a6 6 0 01-7.743 5.743L11 17H9v2H7v2H4a1 1 0 01-1-1v-2.586a1 1 0 01.293-.707l5.964-5.964A6 6 0 1121 9z"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg text-espresso mb-2" data-i18n="feat_4_title">Chaves oficiais</h4>
-              <p class="text-sm text-espresso/75 leading-relaxed" data-i18n="feat_4_desc">Jogos distribuídos com chaves fornecidas ou autorizadas por seus responsáveis.</p>
-            </div>
-          </div>
-
-          <!-- Card 5 -->
-          <div class="feature-card bg-white border-2 border-espresso rounded-2xl p-6 shadow-retro relative flex flex-col justify-between">
-            <div class="w-10 h-10 rounded-xl bg-cream border-2 border-espresso flex items-center justify-center mb-4 text-kelly">
-              <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg text-espresso mb-2" data-i18n="feat_5_title">Edições especiais</h4>
-              <p class="text-sm text-espresso/75 leading-relaxed" data-i18n="feat_5_desc">Seleções temáticas por tempo limitado, cada uma com sua própria identidade.</p>
-            </div>
-          </div>
-
-          <!-- Card 6 -->
-          <div class="feature-card bg-white border-2 border-espresso rounded-2xl p-6 shadow-retro relative flex flex-col justify-between">
-            <div class="w-10 h-10 rounded-xl bg-cream border-2 border-espresso flex items-center justify-center mb-4 text-butter">
-              <svg class="w-5 h-5 text-espresso" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z"/></svg>
-            </div>
-            <div>
-              <h4 class="font-extrabold text-lg text-espresso mb-2" data-i18n="feat_6_title">Espaço para criadores</h4>
-              <p class="text-sm text-espresso/75 leading-relaxed" data-i18n="feat_6_desc">Destaque para os estúdios, artistas e pessoas por trás dos jogos.</p>
-            </div>
-          </div>
-
-        </div>
-      </section>
 
     </div>
   </main>
@@ -459,26 +404,32 @@
   <footer class="w-full">
     <div class="max-w-6xl mx-auto px-4 sm:px-8 pb-3.5 flex flex-wrap items-center justify-between gap-3 text-xs sm:text-sm text-espresso/85">
       
-      <!-- Prominent Contact Email Badge -->
-      <div class="inline-flex items-center bg-white/95 border-2 border-espresso rounded-xl shadow-retro-sm overflow-hidden">
-        <a 
-          href="mailto:partner@pixelbistro.com.br" 
-          title="Enviar e-mail para partner@pixelbistro.com.br"
-          class="px-3 py-1.5 font-bold text-espresso hover:text-periwinkle transition-colors flex items-center gap-1.5"
-        >
-          <svg class="w-4 h-4 shrink-0 text-periwinkle" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-          <span>partner@pixelbistro.com.br</span>
-        </a>
-        <button 
-          type="button"
-          id="copyEmailBtn"
-          onclick="copyContactEmail()"
-          aria-label="Copiar e-mail partner@pixelbistro.com.br"
-          class="px-2.5 py-1.5 bg-cream hover:bg-butter border-l-2 border-espresso font-pixel text-[10px] sm:text-[11px] text-espresso transition-colors cursor-pointer flex items-center gap-1"
-        >
-          <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
-          <span id="copyEmailLabel" data-i18n="btn_copy">Copiar</span>
-        </button>
+      <!-- Contact Email Badge + Audience Label -->
+      <div class="flex flex-wrap items-center gap-2">
+        <div class="inline-flex items-center bg-white/95 border-2 border-espresso rounded-xl shadow-retro-sm overflow-hidden">
+          <a 
+            href="mailto:partners@pixelbistro.com.br" 
+            title="Enviar e-mail para partners@pixelbistro.com.br"
+            class="px-3 py-1.5 font-bold text-espresso hover:text-periwinkle transition-colors flex items-center gap-1.5"
+          >
+            <svg class="w-4 h-4 shrink-0 text-periwinkle" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            <span>partners@pixelbistro.com.br</span>
+          </a>
+          <button 
+            type="button"
+            id="copyEmailBtn"
+            onclick="copyContactEmail()"
+            aria-label="Copiar e-mail partners@pixelbistro.com.br"
+            class="px-2.5 py-1.5 bg-cream hover:bg-butter border-l-2 border-espresso font-pixel text-[10px] sm:text-[11px] text-espresso transition-colors cursor-pointer flex items-center gap-1"
+          >
+            <svg class="w-3.5 h-3.5 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
+            <span id="copyEmailLabel" data-i18n="btn_copy">Copiar</span>
+          </button>
+        </div>
+
+        <span class="text-xs font-semibold text-espresso/80 bg-white/80 border border-espresso/30 rounded-lg px-2.5 py-1" data-i18n="contact_audience">
+          Para publishers, developers e artistas
+        </span>
       </div>
 
       <!-- Bottom-Right Corner Label -->
@@ -498,14 +449,17 @@
 
     const translations = {
       pt: {
-        top_badge: 'Saindo do forno • Edição Inaugural',
+        top_badge: 'Saindo do forno',
         note_part1: 'A identidade visual do Pixel Bistro contará com ',
         note_bold: 'artes originais comissionadas de artistas brasileiros',
         note_part2: ', criadas especialmente para o projeto.',
-        logo_subtitle_badge: '🥐 Saindo do forno em breve',
-        headline: 'Grandes jogos merecem um lugar à mesa.',
-        subtitle: 'Edição Inaugural — Saindo do forno: uma nova curadoria de bundles de jogos para jogadores brasileiros.',
-        email_placeholder: 'voce@exemplo.com.br',
+        headline: 'Estamos preparando algo especial.',
+        subtitle: 'Uma nova maneira de descobrir grandes jogos está chegando ao Brasil.',
+        construction_banner: 'EM CONSTRUÇÃO!',
+        tagline: 'Grandes jogos merecem um lugar à mesa.',
+        waitlist_title: 'Quer acompanhar a inauguração?',
+        waitlist_subtitle: 'Receba novidades sobre nossa primeira edição.',
+        email_placeholder: 'Seu melhor e-mail',
         btn_notify: 'Acompanhe de perto',
         chip_player: '🎮 Quero receber novidades',
         chip_creator: '✏️ Quero trabalhar com você',
@@ -515,59 +469,36 @@
         btn_another: 'Cadastrar outro e-mail',
         btn_copy: 'Copiar',
         btn_copied: 'Copiado!',
-        bottom_right: 'Em breve',
-        features_title: 'Mais que um bundle de jogos.',
-        features_subtitle: 'Uma seleção feita com carinho, pensada para aproximar bons jogos de novos jogadores.',
-        feat_1_title: 'Curadoria de verdade',
-        feat_1_desc: 'Cada edição reúne jogos escolhidos a dedo. Nada de encher a seleção só para aumentar a quantidade.',
-        feat_2_title: 'Feito para o Brasil',
-        feat_2_desc: 'Preços em reais e uma experiência pensada para jogadores brasileiros.',
-        feat_3_title: 'Segredos da Cozinha',
-        feat_3_desc: 'Uma revista digital gratuita com histórias, inspirações e bastidores dos jogos.',
-        feat_4_title: 'Chaves oficiais',
-        feat_4_desc: 'Jogos distribuídos com chaves fornecidas ou autorizadas por seus responsáveis.',
-        feat_5_title: 'Edições especiais',
-        feat_5_desc: 'Seleções temáticas por tempo limitado, cada uma com sua própria identidade.',
-        feat_6_title: 'Espaço para criadores',
-        feat_6_desc: 'Destaque para os estúdios, artistas e pessoas por trás dos jogos.'
+        contact_audience: 'Para publishers, developers e artistas',
+        bottom_right: 'Em breve'
       },
       en: {
-        top_badge: 'Fresh out the oven • Inaugural Edition',
+        top_badge: 'Fresh out the oven',
         note_part1: "Pixel Bistro's visual identity will feature ",
         note_bold: 'original artwork commissioned from Brazilian artists',
         note_part2: ', created specifically for the project.',
-        logo_subtitle_badge: '🥐 Fresh out the oven soon',
-        headline: 'Great games deserve a place at the table.',
-        subtitle: 'Inaugural Edition — Fresh out the oven: a new curated game bundle for Brazilian players.',
-        email_placeholder: 'you@example.com',
+        headline: "We're cooking up something special.",
+        subtitle: 'A new way to discover great indie games is coming to Brazil.',
+        construction_banner: 'UNDER CONSTRUCTION!',
+        tagline: 'Great games deserve a place at the table.',
+        waitlist_title: 'Want to follow the grand opening?',
+        waitlist_subtitle: 'Get updates about our inaugural edition.',
+        email_placeholder: 'Your best email',
         btn_notify: 'Keep in touch',
-        chip_player: "🎮 I want updates",
-        chip_creator: "✏️ I want to work with you",
+        chip_player: '🎮 I want updates',
+        chip_creator: '✏️ I want to work with you',
         stamp_title: 'Seat reserved at the table!',
         confirm_player: "You're on the list! We'll send your invite as soon as our inaugural menu opens.",
         confirm_creator: "Got your email! We'll reach out soon to discuss potential partnerships.",
         btn_another: 'Register another email',
         btn_copy: 'Copy',
         btn_copied: 'Copied!',
-        bottom_right: 'Coming soon',
-        features_title: 'More than just a game bundle.',
-        features_subtitle: 'A carefully crafted selection designed to bring great games closer to new players.',
-        feat_1_title: 'True curation',
-        feat_1_desc: 'Every edition features hand-picked games. No filler titles just to pad the bundle size.',
-        feat_2_title: 'Made for Brazil',
-        feat_2_desc: 'Local pricing in BRL and an experience tailored specifically for Brazilian players.',
-        feat_3_title: 'Kitchen Secrets',
-        feat_3_desc: 'A free digital zine featuring stories, inspiration, and behind-the-scenes content.',
-        feat_4_title: 'Official keys',
-        feat_4_desc: 'Games distributed with keys provided or authorized by their creators.',
-        feat_5_title: 'Special editions',
-        feat_5_desc: 'Limited-time themed selections, each with its own distinct identity.',
-        feat_6_title: 'Space for creators',
-        feat_6_desc: 'Highlighting the studios, artists, and people behind the games.'
+        contact_audience: 'For publishers, developers & artists',
+        bottom_right: 'Coming soon'
       }
     };
 
-    // Logo Glitch Trigger (Smooth & Aggressive without jumping rotation)
+    // Logo Glitch Trigger (0.55s One-Shot)
     const logoTrigger = document.getElementById('logoGlitchTrigger');
     const logoTarget = document.getElementById('logoGlitchTarget');
 
@@ -582,7 +513,7 @@
     });
 
     function copyContactEmail() {
-      const email = 'partner@pixelbistro.com.br';
+      const email = 'partners@pixelbistro.com.br';
       const tempInput = document.createElement('input');
       tempInput.value = email;
       document.body.appendChild(tempInput);
@@ -676,10 +607,19 @@
       applyLanguage(currentLang === 'pt' ? 'en' : 'pt');
     });
 
+    function showFormError(message) {
+      const errorBox = document.getElementById('formErrorBox');
+      errorBox.textContent = message;
+      errorBox.classList.remove('hidden');
+    }
+
     document.getElementById('waitlistForm').addEventListener('submit', function(e) {
       e.preventDefault();
       const form = this;
       const submitBtn = document.getElementById('submitBtn');
+      const errorBox = document.getElementById('formErrorBox');
+      errorBox.classList.add('hidden');
+
       submitBtn.disabled = true;
       submitBtn.textContent = currentLang === 'pt' ? 'Enviando...' : 'Sending...';
 
@@ -702,14 +642,14 @@
           form.classList.add('hidden');
           stamp.classList.remove('hidden');
         } else {
-          alert(json.message || (currentLang === 'pt' ? "Ocorreu um erro ao enviar. Tente novamente." : "An error occurred. Please try again."));
+          showFormError(json.message || (currentLang === 'pt' ? "Ocorreu um erro ao enviar. Tente novamente." : "An error occurred. Please try again."));
           submitBtn.disabled = false;
           submitBtn.textContent = translations[currentLang].btn_notify;
         }
       })
       .catch(error => {
         console.error(error);
-        alert(currentLang === 'pt' ? "Erro de conexão. Verifique sua internet." : "Connection error. Check your internet.");
+        showFormError(currentLang === 'pt' ? "Erro de conexão. Verifique sua internet." : "Connection error. Check your internet.");
         submitBtn.disabled = false;
         submitBtn.textContent = translations[currentLang].btn_notify;
       });
@@ -720,6 +660,7 @@
       form.reset();
       form.classList.remove('hidden');
       document.getElementById('confirmationStamp').classList.add('hidden');
+      document.getElementById('formErrorBox').classList.add('hidden');
       const submitBtn = document.getElementById('submitBtn');
       submitBtn.disabled = false;
       submitBtn.textContent = translations[currentLang].btn_notify;
